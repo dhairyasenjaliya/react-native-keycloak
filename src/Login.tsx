@@ -4,20 +4,51 @@ import {useKeycloak, ReactNativeKeycloakProvider} from '@react-keycloak/native';
 import styles from './styles';
 
 const Login = () => {
-  const {keycloak} = useKeycloak();
-  console.log('🚀 ~ hyyyyk', keycloak);
+  const {keycloak} = useKeycloak(); //Stores data in mobile without redux
+  const {tokenParsed} = keycloak;
+  let firstName = tokenParsed?.given_name;
+  let lastName = tokenParsed?.family_name;
 
   return (
     <ReactNativeKeycloakProvider
       onTokens={(data) => {
-        console.log('🚀 ~ file: Login.tsx ~ line 14 ~ Login ~ data', data);
+        // you can change logic here after login
+        console.log('🚀 ~ ', data);
       }}
       authClient={keycloak}>
       <View style={styles.container}>
-        <Text>{`Welcome ${keycloak?.authenticated} - ${keycloak?.token}!`}</Text>
-        <Button onPress={() => keycloak?.login()} title="Login" />
-        <Button onPress={() => keycloak?.logout()} title="Logout" />
-        <Button onPress={() => keycloak?.register()} title="Register" />
+        {keycloak?.authenticated ? (
+          <View>
+            <Text>{`Welcome ${firstName + ' ' + lastName}  !`}</Text>
+            <Button
+              onPress={() => {
+                keycloak?.logout();
+              }}
+              title="Logout"
+            />
+          </View>
+        ) : (
+          <View style={{alignItems: 'center'}}>
+            <Text style={{marginVertical: 20}}>{`Welcome !`}</Text>
+            <Button
+              style={{marginVertical: 30}}
+              onPress={() => {
+                keycloak?.login().then((data) => {
+                  console.log('🚀 ~loginnnn ~ ', data);
+                });
+              }}
+              title="Login"
+            />
+            <Button
+              onPress={() => {
+                keycloak?.register().then((data) => {
+                  console.log('hey', data);
+                });
+              }}
+              title="Register"
+            />
+          </View>
+        )}
       </View>
     </ReactNativeKeycloakProvider>
   );

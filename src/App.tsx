@@ -1,13 +1,13 @@
 import * as React from 'react';
-
-import {RNKeycloak, ReactNativeKeycloakProvider} from '@react-keycloak/native';
+import {ReactNativeKeycloakProvider} from '@react-keycloak/native';
 import Login from './Login';
 
-const keycloak = new RNKeycloak({
-  url: 'http://localhost:8080/auth/',
-  realm: 'master',
-  clientId: 'master-realm',
-});
+// Edit Your Configuration here in Config file
+import keycloak from './Config';
+
+//For hiding warning only
+console.warn = function () {};
+console.disableYellowBox = true;
 
 export default function App() {
   return (
