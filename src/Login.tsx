@@ -12,8 +12,7 @@ const Login = () => {
   return (
     <ReactNativeKeycloakProvider
       onTokens={(data) => {
-        // you can change logic here after login
-        console.log('🚀 ~ ', data);
+         console.log('🚀 ~ ', data);
       }}
       authClient={keycloak}>
       <View style={styles.container}>
@@ -33,17 +32,13 @@ const Login = () => {
             <Button
               style={{marginVertical: 30}}
               onPress={() => {
-                keycloak?.login().then((data) => {
-                  console.log('🚀 ~loginnnn ~ ', data);
-                });
+                keycloak?.login()
               }}
               title="Login"
             />
             <Button
               onPress={() => {
-                keycloak?.register().then((data) => {
-                  console.log('hey', data);
-                });
+                keycloak?.register()
               }}
               title="Register"
             />
