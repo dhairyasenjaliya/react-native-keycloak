@@ -36,6 +36,7 @@ const Login = () => {
               }}
               title="Login"
             />
+            <View style={{marginVertical:10}}/>
             <Button
               onPress={() => {
                 keycloak?.register()
