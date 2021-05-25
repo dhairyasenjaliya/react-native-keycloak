@@ -13,14 +13,15 @@ export default function App() {
   return (
     <ReactNativeKeycloakProvider
       authClient={keycloak}
+      onEvent={(event) => {
+        console.log('Event: ', event);
+      }}
+      onTokens={(token) => {
+        console.log('Token: ', token);
+      }}
       initOptions={{
         redirectUri: 'myapp://Homepage', //Change Your deeplink URL set as *Valid Redirect URIs from keycloak server
-        inAppBrowserOptions: {
-          // ephemeralWebSession: true,
-          //Can be pass to extra props to package this allows to login flow
-          // 1. (ephemeralWebSession:True) When User kills the app it will store session securely and will prompt again for login without credential
-          // 2. (ephemeralWebSession:False) When User kills the app it will not store session and need pass credential again
-        },
+        inAppBrowserOptions: {},
       }}>
       <Login />
     </ReactNativeKeycloakProvider>

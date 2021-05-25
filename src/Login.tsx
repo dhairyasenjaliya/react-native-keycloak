@@ -12,7 +12,7 @@ const Login = () => {
   return (
     <ReactNativeKeycloakProvider
       onTokens={(data) => {
-         console.log('🚀 ~ ', data);
+        console.log('🚀 ~ ', data);
       }}
       authClient={keycloak}>
       <View style={styles.container}>
@@ -32,14 +32,18 @@ const Login = () => {
             <Button
               style={{marginVertical: 30}}
               onPress={() => {
-                keycloak?.login()
+                keycloak?.login();
+                // keycloak?.login({prompt: 'login'});
+                //Can be pass to extra props to package this allows to login flow
+                // 1. (prompt:True) When User kills the app it will store session securely and will prompt again for login without credential
+                // 2. (prompt:False) When User kills the app it will not store session and need pass credential again
               }}
               title="Login"
             />
-            <View style={{marginVertical:10}}/>
+            <View style={{marginVertical: 10}} />
             <Button
               onPress={() => {
-                keycloak?.register()
+                keycloak?.register();
               }}
               title="Register"
             />
